@@ -1,7 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://bqk7tjyhnyv8j"]
 
 [ext_resource type="Script" path="res://landscape_ver1.gd" id="1_g6rkn"]
-[ext_resource type="Script" path="res://path_follow_3d.gd" id="2_alaop"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_35ew3"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -16,14 +15,19 @@ sky = SubResource("Sky_4bph8")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="Curve3D" id="Curve3D_eqarx"]
+[sub_resource type="Curve3D" id="Curve3D_fxlm7"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -1, 2.5, -0.01, 0, 0, 0, 0, 0, 0, 1, 2, 10, 0, 0, 0, 0, 0, 0, 13.5963, 7.02093, -15.574, 0, 0, 0, 0, 0, 0, -9.19744, 2.85789, -26.7001, 0, 0, 0, 0, 0, 0, -21.176, 7.08769, -14.886, 0, 0, 0, 0, 0, 0, -32.2174, 6.40748, 18.9094, 0, 0, 0, 0, 0, 0, 4.06344, 10.8162, 36.9538, 0, 0, 0, 0, 0, 0, 1.98182, 16.5433, 26.1651, 0, 0, 0, 0, 0, 0, 13.1747, 9.32599, 18.5267, 0, 0, 0, 0, 0, 0, 10.354, 11.0243, 8.33181, 0, 0, 0, 0, 0, 0, 10.6545, 13.3898, -7.64817),
-"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+"points": PackedVector3Array(-90.7934, 63.2829, 68.7144, 90.7934, -63.2829, -68.7144, -282, 304, -210, -136.151, 20.5558, -129.797, 136.151, -20.5558, 129.797, 297, 260, -329, 147.682, 68.2488, -156.427, -147.682, -68.2488, 156.427, 268, 315, 164, 115.227, 32.175, 122.449, -115.227, -32.175, -122.449, -245, 382, 295, -80.579, 45.911, 152.418, 80.579, -45.911, -152.418, -282, 304, -210),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
 }
-point_count = 11
+point_count = 5
 
-[sub_resource type="SphereMesh" id="SphereMesh_67nju"]
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_jkh10"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qn6go"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.829107, 0.40902, 0.81506, 1)
+metallic = 0.49
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_g6rkn")
@@ -40,14 +44,13 @@ transform = Transform3D(1, 0, 0, 0, 0.979223, 0.202787, 0, -0.202787, 0.979223, 
 fov = 66.0
 
 [node name="Path3D" type="Path3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.75207, -7.01597, -2.46112)
-curve = SubResource("Curve3D_eqarx")
+transform = Transform3D(0.993019, -0.103271, -0.056993, 0.104646, 0.994273, 0.0216812, 0.0544275, -0.0274939, 0.998139, 0, 0, 0)
+curve = SubResource("Curve3D_fxlm7")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
-transform = Transform3D(-0.980618, 0.00958542, -0.195693, 4.65661e-10, 0.998802, 0.0489233, 0.195928, 0.0479751, -0.979444, -1, 2.5, -0.01)
-script = ExtResource("2_alaop")
+transform = Transform3D(0.603473, 0.387357, -0.69697, 1.49011e-08, 0.874072, 0.485788, 0.797378, -0.29316, 0.527482, -282, 304, -210)
 
-[node name="BallTemp" type="MeshInstance3D" parent="Path3D/PathFollow3D"]
-transform = Transform3D(-0.054553, -1.86265e-09, 0.998511, 0.83912, 0.542011, 0.0458448, -0.541204, 0.840371, -0.0295683, 8.21802, -15.8472, -5.71225)
-mesh = SubResource("SphereMesh_67nju")
-skeleton = NodePath("../../..")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Path3D/PathFollow3D"]
+transform = Transform3D(5, 0, 0, 0, 0.270394, -4.99268, 0, 4.99268, 0.270394, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_jkh10")
+surface_material_override/0 = SubResource("StandardMaterial3D_qn6go")
