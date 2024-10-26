@@ -1,7 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://bqk7tjyhnyv8j"]
+[gd_scene load_steps=8 format=3 uid="uid://bqk7tjyhnyv8j"]
 
 [ext_resource type="Script" path="res://landscape_ver1.gd" id="1_g6rkn"]
-[ext_resource type="Script" path="res://path_follow_3d.gd" id="2_nkgrv"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_35ew3"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -18,7 +17,7 @@ glow_enabled = true
 
 [sub_resource type="Curve3D" id="Curve3D_fxlm7"]
 _data = {
-"points": PackedVector3Array(-228.772, -10.4033, 305.199, 228.772, 10.4033, -305.199, -282, 304, -210, -505.747, 76.4535, -293.529, 505.747, -76.4535, 293.529, 1249.51, 63.7147, -111.285, 126.988, 75.5289, -695.072, -126.988, -75.5289, 695.072, 1870.06, -80.4261, 1352.29, 233.591, -129.387, 131.19, -233.591, 129.387, -131.19, 146.193, 144.43, 1648.96, -349.445, 4.44211, 700.51, 349.445, -4.44211, -700.51, -282, 304, -210),
+"points": PackedVector3Array(-90.7934, 63.2829, 68.7144, 90.7934, -63.2829, -68.7144, -282, 304, -210, -136.151, 20.5558, -129.797, 136.151, -20.5558, 129.797, 297, 260, -329, 147.682, 68.2488, -156.427, -147.682, -68.2488, 156.427, 268, 315, 164, 115.227, 32.175, 122.449, -115.227, -32.175, -122.449, -245, 382, 295, -80.579, 45.911, 152.418, 80.579, -45.911, -152.418, -282, 304, -210),
 "tilts": PackedFloat32Array(0, 0, 0, 0, 0)
 }
 point_count = 5
@@ -45,13 +44,11 @@ transform = Transform3D(1, 0, 0, 0, 0.979223, 0.202787, 0, -0.202787, 0.979223, 
 fov = 66.0
 
 [node name="Path3D" type="Path3D" parent="."]
-transform = Transform3D(0.049651, -0.00516356, -0.00284965, 0.0052323, 0.0497137, 0.00108406, 0.00272138, -0.0013747, 0.049907, -29.6763, 6.48552, -30.4037)
+transform = Transform3D(0.049651, -0.00516356, -0.00284965, 0.0052323, 0.0497137, 0.00108406, 0.00272138, -0.0013747, 0.049907, 26.9724, 1.41533, 25.2411)
 curve = SubResource("Curve3D_fxlm7")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
-transform = Transform3D(-0.0013665, 0.00872229, -0.0492144, 0.00413374, 0.0490841, 0.00858433, 0.0498104, -0.00383418, -0.00206256, 299.239, 230.65, -390.511)
-progress = 636.522
-script = ExtResource("2_nkgrv")
+transform = Transform3D(0.0301738, 0.019368, -0.0348486, 7.45059e-10, 0.0437038, 0.0242894, 0.0398691, -0.0146581, 0.0263742, -282, 304, -210)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Path3D/PathFollow3D"]
 transform = Transform3D(75, 0, 0, 0, 4.05591, -74.8903, 0, 74.8903, 4.05591, 0, 0, 0)
