@@ -8,13 +8,22 @@ extends Node3D
 @export var lacunarity: float = 2.0
 @export var grass_texture_path: String = "res://path/to/your/grass_texture.png"  # Set path to your grass texture
 
+#----------------
+@export var path: NodePath
+@export var segment_length: float = 1.0
+
+#----------------
+
 var noise: FastNoiseLite
 var noise_image: Image
 var mesh_instance: MeshInstance3D
 
 func _ready():
+	draw_path()
 	generate_noise_image()
 	generate_landscape()
+	
+
 
 func generate_noise_image():
 	noise = FastNoiseLite.new()
@@ -76,3 +85,27 @@ func setup_material(instance):
 func get_height_from_uv(uv: Vector2):
 	var pixel_pos = uv * Vector2(noise_image.get_width() - 1, noise_image.get_height() - 1)
 	return noise_image.get_pixelv(pixel_pos).r * height_scale
+
+func draw_path():
+		#----------------
+	var path_node = get_node(path) as Path3D
+	if not path_node:
+		print("Invalid Path3D node")
+		return
+	
+	var curve = path_node.curve
+	var current_distance = 0.0
+	
+	while current_distance < curve.get_baked_length():
+		var segment = MeshInstance3D.new()
+		segment.mesh = CylinderMesh.new() # You can use a thin BoxMesh or CylinderMesh
+		
+		segment.transform.origin = curve.interpolate_baked(current_distance)
+		
+		segment.look_at(curve.interpolate_baked(current_distance + segment_length), Vector3.UP)
+		
+		add_child(segment)
+		current_distance += segment_length
+	
+	
+	#-----------------
